@@ -1,0 +1,108 @@
+﻿@model Project_of_Sharan.Models.Review
+
+@{
+    Layout = "_Layout";
+}
+
+<h2 class="text-center my-4">Add a Review</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "Success!",
+            text: "@TempData["SuccessMessage"]",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    </script>
+}
+
+<form asp-controller="Review" asp-action="AddReview" method="post" enctype="multipart/form-data" class="p-4 shadow-sm rounded bg-light">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group mb-3">
+        <label for="CoffeeShopItemName" class="form-label">Coffee Shop Item Name</label>
+        <input type="text" class="form-control" id="CoffeeShopItemName" name="CoffeeShopItemName" required placeholder="Enter the item name" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Rating</label>
+        <div class="star-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+        <input type="hidden" name="Rating" id="Rating" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="ReviewText" class="form-label">Review Text</label>
+        <textarea class="form-control" id="ReviewText" name="ReviewText" rows="4" placeholder="Write your review here"></textarea>
+    </div>
+
+    <!-- Image Upload Section -->
+    <div class="form-group mb-3">
+        <label for="Images" class="form-label">Upload Images (optional)</label>
+        <input type="file" class="form-control" id="Images" name="Images" multiple />
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg">Submit Review</button>
+    </div>
+</form>
+
+@section CustomCss {
+    <style>
+        .star-rating {
+            display: inline-block;
+        }
+
+        .star {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+        }
+
+            .star:hover,
+            .star.selected {
+                color: gold;
+            }
+
+        #Rating {
+            display: none;
+        }
+    </style>
+}
+
+@section CustomJs {
+    <script>
+        $(document).ready(function () {
+            var rating = $('#Rating').val();
+
+            // Highlight the stars based on the initial rating
+            $(".star").each(function () {
+                if ($(this).data('value') <= rating) {
+                    $(this).addClass('selected');
+                }
+            });
+
+            // Handle star click
+            $(".star").click(function () {
+                var selectedRating = $(this).data('value');
+                $('#Rating').val(selectedRating);
+
+                // Update the displayed stars
+                $(".star").removeClass('selected');
+                $(".star").each(function () {
+                    if ($(this).data('value') <= selectedRating) {
+                        $(this).addClass('selected');
+                    }
+                });
+            });
+        });
+    </script>
+}

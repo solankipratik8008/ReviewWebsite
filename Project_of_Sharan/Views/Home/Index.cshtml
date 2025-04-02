@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Project_of_Sharan.Models.Review>
+
+<h1>All Reviews</h1>
+
+<!-- Display reviews -->
+<div>
+    @foreach (var review in Model)
+    {
+        <div class="review">
+            <h3>@review.CoffeeShopItemName</h3>
+            <p>@review.ReviewText</p>
+            <p><strong>By:</strong> @review.User.Username</p>
+            <p><strong>Posted on:</strong> @review.DatePosted.ToString("MM/dd/yyyy")</p>
+
+            @if (review.ReviewImages != null && review.ReviewImages.Any())
+            {
+                foreach (var reviewImage in review.ReviewImages)
+                {
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(reviewImage.ImageData)" alt="Review Image" class="review-image" />
+                }
+            }
+        </div>
+    }
+</div>

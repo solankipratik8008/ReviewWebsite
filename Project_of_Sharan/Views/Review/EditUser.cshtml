@@ -1,0 +1,88 @@
+﻿@model Project_of_Sharan.Models.Review
+
+@{
+    ViewData["Title"] = "Edit Your Review";
+}
+
+<h2>Edit Your Review</h2>
+
+<form asp-action="EditUser" method="post">
+    <input type="hidden" asp-for="ReviewId" />
+
+    <div class="form-group">
+        <label asp-for="CoffeeShopItemName" class="control-label"></label>
+        <input asp-for="CoffeeShopItemName" class="form-control" />
+    </div>
+
+
+    <div class="mb-3">
+        <label class="form-label">Rating</label>
+        <div class="star-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+        <input type="hidden" name="Rating" id="Rating" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ReviewText" class="control-label"></label>
+        <textarea asp-for="ReviewText" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Review</button>
+</form>
+
+@section CustomCss {
+    <style>
+        .star-rating {
+            display: inline-block;
+        }
+
+        .star {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+        }
+
+            .star:hover,
+            .star.selected {
+                color: gold;
+            }
+
+        #Rating {
+            display: none;
+        }
+    </style>
+}
+
+@section CustomJs {
+    <script>
+        $(document).ready(function () {
+            var rating = $('#Rating').val();
+
+            // Highlight the stars based on the initial rating
+            $(".star").each(function () {
+                if ($(this).data('value') <= rating) {
+                    $(this).addClass('selected');
+                }
+            });
+
+            // Handle star click
+            $(".star").click(function () {
+                var selectedRating = $(this).data('value');
+                $('#Rating').val(selectedRating);
+
+                // Update the displayed stars
+                $(".star").removeClass('selected');
+                $(".star").each(function () {
+                    if ($(this).data('value') <= selectedRating) {
+                        $(this).addClass('selected');
+                    }
+                });
+            });
+        });
+    </script>
+}

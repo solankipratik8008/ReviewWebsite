@@ -1,0 +1,88 @@
+﻿@model List<Project_of_Sharan.Models.Review>
+
+@if (ViewData["SweetAlertSuccessMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "Success!",
+            text: "@ViewData["SweetAlertSuccessMessage"]",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    </script>
+}
+
+@if (ViewData["SweetAlertErrorMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "Error!",
+            text: "@ViewData["SweetAlertErrorMessage"]",
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    </script>
+}
+
+<h1>My Reviews</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Rating</th>
+                <th>Review Text</th>
+                <th>Images</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var review in Model)
+            {
+                <tr>
+                    <td>@review.CoffeeShopItemName</td>
+                    <td>@review.Rating<i class="bi bi-star-fill"></i></td>
+                    <td>@review.ReviewText</td>
+                    <td>
+                        @if (review.ReviewImages != null && review.ReviewImages.Any())
+                        {
+                            <div class="review-images">
+                                @foreach (var image in review.ReviewImages)
+                                {
+                                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(image.ImageData)"
+                                         alt="Review Image"
+                                         style="max-width: 100px; height: auto; margin-right: 5px;" />
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-controller="Review" asp-action="EditUser" asp-route-id="@review.ReviewId" class="btn btn-primary btn-sm" onclick="return confirmEdit();">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function confirmEdit() {
+        return Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to edit this review?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, edit it!',
+            cancelButtonText: 'No, cancel!'
+        }).then((result) => {
+            return result.isConfirmed; // Proceed if confirmed
+        });
+    }
+</script>
