@@ -23,6 +23,27 @@ This project is used by the following entities:
 
 **DesignPattern:** MVC 
 
+## Run Locally
+
+Prerequisite: install the .NET 9 SDK.
+
+From the repository root:
+
+```bash
+dotnet restore ReviewSite.sln
+dotnet build ReviewSite.sln
+dotnet run --project ReviewSite/ReviewSite.csproj
+```
+
+Open the URL shown in the terminal, usually `http://localhost:5210`.
+
+For local development the app uses SQLite and creates `ReviewSite/ReviewSite.db` automatically on first run. The seeded login accounts are:
+
+- Admin: `ConestogaCollege` / `123`
+- User: `user1` / `password`
+
+To use SQL Server instead, set `DatabaseProvider` to `SqlServer` and provide a SQL Server connection string named `ReviewSiteContext`.
+
 
 ## How to Use
 
@@ -99,6 +120,4 @@ Sharan :
 Anmol : 
 1. Content Creater : Provided all the content including images for the website.
 2. Designing : participated in designing for the website.
-
-
 

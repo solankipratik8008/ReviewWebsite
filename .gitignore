@@ -63,6 +63,11 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
+# Local development database
+ReviewSite/*.db
+ReviewSite/*.db-shm
+ReviewSite/*.db-wal
+
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
 
