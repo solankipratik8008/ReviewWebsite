@@ -1,30 +1,5 @@
 ﻿@model ReviewSite.Models.User
 
-
-@if (TempData["SuccessMessage"] != null)
-{
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: '@TempData["SuccessMessage"]',
-            showConfirmButton: false,
-            timer: 1500
-        });
-    </script>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: '@TempData["ErrorMessage"]',
-            showConfirmButton: false,
-            timer: 1500
-        });
-    </script>
-}
-
 <h2>Register</h2>
 
 

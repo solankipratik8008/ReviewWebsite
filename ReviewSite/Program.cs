@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ReviewSite.Data;
+using ReviewSite.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +58,8 @@ using (var scope = app.Services.CreateScope())
     {
         context.Database.EnsureCreated();
     }
+
+    SeedUsers(context);
 }
 
 app.UseHttpsRedirection();
@@ -72,3 +76,54 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+static void SeedUsers(ReviewSiteContext context)
+{
+    var passwordHasher = new PasswordHasher<User>();
+
+    EnsureUser(context, passwordHasher, "ConestogaCollege", "123", "Admin");
+    EnsureUser(context, passwordHasher, "user1", "password", "User");
+
+    context.SaveChanges();
+}
+
+static void EnsureUser(
+    ReviewSiteContext context,
+    PasswordHasher<User> passwordHasher,
+    string username,
+    string password,
+    string role)
+{
+    var user = context.User.FirstOrDefault(u => u.Username == username);
+
+    if (user == null)
+    {
+        user = new User
+        {
+            Username = username,
+            Role = role
+        };
+        user.Password = passwordHasher.HashPassword(user, password);
+        context.User.Add(user);
+        return;
+    }
+
+    user.Role = role;
+
+    var passwordIsValid = false;
+
+    try
+    {
+        passwordIsValid = passwordHasher.VerifyHashedPassword(user, user.Password, password)
+            != PasswordVerificationResult.Failed;
+    }
+    catch (FormatException)
+    {
+        passwordIsValid = false;
+    }
+
+    if (!passwordIsValid)
+    {
+        user.Password = passwordHasher.HashPassword(user, password);
+    }
+}
