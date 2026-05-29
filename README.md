@@ -1,33 +1,45 @@
 
 
+
+
 # CoffeeShot
 
-A review web application for maintaining user reviews of different Coffees/coffee shops and coffee food items. 
-It enhances the shop owners to upgrade their business by knowing their exact strengths and weakness.
+CoffeeShot is an ASP.NET MVC review web application for coffee shops, coffee products, and coffee-related food items. It allows users to register, log in, add reviews, upload images, give star ratings, filter reviews, and contact the admin.
 
+The goal of this project is to help customers share honest feedback and help coffee shop owners understand customer likes, dislikes, strengths, and improvement areas.
 
-## Used By
+## Project Demo
 
-This project is used by the following entities:
+[![CoffeeShot Project Demo](https://img.youtube.com/vi/NuI8AOkovwA/maxresdefault.jpg)](https://youtu.be/NuI8AOkovwA)
 
-- General Customers : Those who normally consume coffee and coffee related food products in their daily life. 
-- Shop Owners : Those who want to boost their business benefits by knowing the real world demand- likes and dislikes, and upgrading their quality accordingly.
-- Admin : The one developer to regularly maintain the Admin panel , accountable for user queries. 
-
+**Watch Demo:** https://youtu.be/NuI8AOkovwA
 
 ## Tech Stack
 
-**Client:** Html, Css
+* **Frontend:** HTML, CSS
+* **Backend:** ASP.NET, C#
+* **Architecture:** MVC
+* **Database:** SQLite / SQL Server option
+* **Framework:** .NET 9
 
-**Server:** Asp.Net, C#
+## Features
 
-**DesignPattern:** MVC 
+* User registration and login
+* Role-based access for users and admin
+* Add and edit reviews
+* Image upload for reviews
+* Star rating system
+* Search and filter reviews
+* Rating slider and date range filter
+* Contact/message form for admin
+* Admin panel for review management
+* Coin reward feature: users earn 5 coins per review
 
 ## Run Locally
 
-Prerequisite: install the .NET 9 SDK.
+Install the .NET 9 SDK first.
 
-From the repository root:
+From the repository root, run:
 
 ```bash
 dotnet restore ReviewSite.sln
@@ -35,71 +47,53 @@ dotnet build ReviewSite.sln
 dotnet run --project ReviewSite/ReviewSite.csproj
 ```
 
-Open the URL shown in the terminal, usually `http://localhost:5210`.
+Open the URL shown in the terminal, usually:
 
-For local development the app uses SQLite and creates `ReviewSite/ReviewSite.db` automatically on first run. The seeded login accounts are:
+```text
+http://localhost:5210
+```
 
-- Admin: `ConestogaCollege` / `123`
-- User: `user1` / `password`
+## Seeded Login Accounts
 
-To use SQL Server instead, set `DatabaseProvider` to `SqlServer` and provide a SQL Server connection string named `ReviewSiteContext`.
+**Admin**
 
+```text
+Username: ConestogaCollege
+Password: 123
+```
 
-## How to Use
+**User**
 
-Step1 : On the launching page, go through the Home, Contact, About Page, Browse Reviews- all just to stay updated of the current website status.
+```text
+Username: user1
+Password: password
+```
 
-Step2 : Register
+## My Contributions
 
-In order to be an active participant as a User, the first step required is to Register and select Role- User.
+* Developed the coin reward feature, giving users 5 coins per review
+* Implemented user registration and login
+* Displayed logged-in username and admin status
+* Created the star rating display logic
+* Added search, rating slider, and date range filters
+* Worked on image save, display, and image flipping preview
+* Enabled users to send messages to the admin
+* Managed temporary database storage during development
 
-Step3 : Login
+## Contributors
 
-After Registration is done successfully, Login with the same User Id and password. 
+**Pratik Kumar Solanki**
+Authentication, coin reward feature, filters, star rating logic, image handling, admin messaging, and database support.
 
-Step4 : Ready to Participate
+**Sharan**
+Review CRUD operations, data seeding, and website design.
 
-Once you have logged in successfully, you can now write a new review and edit your own review only!
-
-Step5 : With every review addition, enjoy earning 5 coins per review and use as per the different coffee shop policies. You may get a discount offer or even a free coffee! 
-
-Step6 : Precautions
-
-Adding review needs the users to follow a particular rule set such as adding image is mandatory and the review cannot be added without all the requirements being fulfilled. 
-
-Step7 : Constraints
-
-User is not allowed to delete their own or any of the existing reviews. If he/she wants to delete any existing reviews, he/she is required to contact with admin. And the final deletion would be executed by the admin.
-
-Step8 : Filters
-
-The website includes several filtering techniques to make the user life easier. These include search by keywords, slider for rating and date range picker.
-
-
-## Features
-
-- Register/Login
-- Write Review
-- Authenticated Review editing
-- Filter
-- Send Message to Admin
-- Admin Panel
-
+**Anmol**
+Website content, images, and design support.
 
 ## Lessons Learned
 
-Several challenges faced during the development journey taught us many important lessons. These include : 
-
-- Authentication
-- Admin Panel execution
-- Saving and retreiving images
-- Using stars to show review rating
-- Flipping images on real time
-- Implementing filter application
-
-
-
-
+This project improved my understanding of ASP.NET MVC, authentication, admin panel development, image handling, database integration, filtering logic, and team-based web application development.
 
 ## Contributing
 
